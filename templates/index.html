@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+  <xi:include href="layout.html" />
+  <head>
+    <title>Rulings</title>
+  </head>
+  <body class="index">
+    <h1>Rulings</h1>
+
+    <ol py:if="rulings">
+      <li py:for="ruling in reversed(rulings)">
+        <a href="${ruling.source}">${ruling.source}</a>
+        By ${ruling.author} at ${ruling.time.strftime('%x %X')}
+      </li>
+    </ol>
+    
+    <p><a class="action" href="/submit/">Submit new ruling</a></p>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+  <xi:include href="layout.html" />
+  <head>
+    <title>Submit new ruling</title>
+    <link rel="stylesheet" href="${url('/media/submit.css')}" type="text/css" />
+    <link rel="stylesheet" href="${url('/media/bootstrap-tokenfield.min.css')}" type="text/css" />
+    <script src="${url('/media/bootstrap-tokenfield.min.js')}"></script>
+    <script>
+    $(function() {
+      $("#datepicker").datepicker();
+      $("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd");
+      $("#references").tokenfield({
+        autocomplete: {
+          source: function(request, response) {
+            $.ajax({url: "http://ponycard.twilightparadox.com/mlpapi1/cards",
+                    data: {list: "anything", query: request.term},
+                    crossDomain: true,
+                    type: "GET",
+                    success: function(json){
+                      console.log(request)
+                      response(jQuery.map(json['data'], function(e){return e['fullname']}))
+                    }
+            })
+          },
+          delay: 200
+        }
+      });
+    });
+    </script>
+  </head>
+  <body class="submit">
+    <h1>Submit new ruling</h1>
+
+    <form action="" method="post" id="submit">
+      <table summary=""><tbody><tr>
+        <th><label for="source">Source URL:</label></th>
+        <td><input type="text" id="source" name="source" /><br />Primary source for this ruling from a dev (facebook rules group)</td>
+      </tr><tr>
+        <th><label for="alternate">Alternate URL:</label></th>
+        <td><input type="text" id="alternate" name="alternate" /><br />Secondary source for public access (imgur picture of facebook post)</td>
+      </tr><tr>
+        <th><label for="author">Author:</label></th>
+        <td><input type="text" id="author" name="author" />Name of developer that wrote the ruling</td>
+      </tr><tr>
+        <th><label for="date_of_ruling">Date of Ruling:</label></th>
+        <td><input type="text" name="date_of_ruling" id="datepicker" />yyyy-mm-dd</td>
+      </tr><tr>
+        <th><label for="added_by">Your Name:</label></th>
+        <td><input type="text" name="added_by" /></td>
+      </tr><tr>
+        <th><label for="references">Cards and Rules referenced:</label></th>
+        <td><input type="text" id="references" name="references" /></td>
+      </tr><tr>
+        <th><label for="content">Content:</label></th>
+        <td>The full text content of the ruling<br /><textarea  type="text" name="content" id="subcontent" /></td>
+      </tr><tr>
+        <td></td>
+        <td>
+          <input type="submit" value="Submit" />
+          <input type="submit" name="cancel" value="Cancel" />
+        </td>
+      </tr></tbody></table>
+    </form>
+  </body>
+</html>
