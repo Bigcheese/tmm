@@ -1,8 +1,8 @@
 import operator, os, pickle, sys
 import cherrypy
 from genshi.template import TemplateLoader
-from geddit.model import Ruling
-from geddit.lib import template
+from tmm.model import Ruling
+from tmm.lib import template
 
 loader = TemplateLoader(
     os.path.join(os.path.dirname(__file__), 'templates'),
