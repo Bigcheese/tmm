@@ -10,9 +10,12 @@
     <h1>Rulings</h1>
 
     <ol py:if="rulings">
+      <?python
+        import base64
+      ?>
       <li py:for="ruling in reversed(rulings)">
-        <a href="${ruling.source}">${ruling.source}</a>
-        By ${ruling.author} at ${ruling.time.strftime('%x %X')}
+        <a href="/ruling/${base64.b64encode(ruling.id)}">${ruling.short_name}</a>
+        By ${ruling.author} on ${ruling.date_of_ruling}
       </li>
     </ol>
     

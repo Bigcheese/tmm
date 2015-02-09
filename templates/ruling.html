@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+  <xi:include href="layout.html" />
+  <head>
+    <title>Ruling: ${ruling.short_name}</title>
+  </head>
+  <body class="index">
+    <h1>Ruling: ${ruling.short_name}</h1>
+
+    <div><a href="${ruling.source}">Source</a></div>
+    <div py:if="ruling.alternate"><a href="${ruling.alternate}">Alternate</a></div>
+    <div>Author: ${ruling.author}</div>
+    <div>Date: ${ruling.date_of_ruling}</div>
+    <div>Added By: ${ruling.added_by} at ${ruling.time}</div>
+    <div>Invalidates: <span py:for="inv in ruling.invalidates">${inv}</span></div>
+    <div>References: <span py:for="ref in ruling.references">${ref}</span></div>
+    <div>Content:</div>
+    <div>${ruling.content}</div>
+    
+    <p><a class="action" href="/submit/">Submit new ruling</a></p>
+  </body>
+</html>
